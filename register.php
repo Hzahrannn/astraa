@@ -48,8 +48,10 @@
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" name="jabatan" placeholder="Jabatan">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <select class="form-control" name="jabatan" placeholder="Jabatan">
+          <option>Manager</option>
+          <option>Pegawai</option>
+        </select>
       </div>
       <div class="form-group has-feedback">
         <input type="email" class="form-control" name="email" placeholder="Email">
@@ -77,7 +79,7 @@
     </form>
 
     <br>
-    <a href="login.html" class="text-center">Sudah Punya Akun?</a>
+    <a href="login.php" class="text-center">Sudah Punya Akun?</a>
   </div>
   <!-- /.form-box -->
 </div>

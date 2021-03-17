@@ -79,6 +79,19 @@
       </a>
     </nav>
   </header>
+  <?php
+
+  require_once 'db.php';
+  $sql = "SELECT * FROM karyawan Where email='$email'";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+                    $id_karyawan = $row['id_karyawan'];
+                    $nama = $row['nama'];
+                    $jabatan = $row['jabatan'];
+                  }
+
+
+  ?>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar" style="background-color:#ecf0f5;">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -89,8 +102,8 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p style="color:#005197"><b>USER</b></p>
-          <p style="color:#005197"><b>Jabatan</b></p>
+          <p style="color:#005197"><b><?php echo $nama; ?></b></p>
+          <p style="color:#005197"><b><?php echo $jabatan; ?></b></p>
         </div>
       </div>
       <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -107,7 +120,23 @@
         </li>
         <li>
           <a href="bengkel_report.php?id=all">
-            </i> <span style="color:#005197"><b>Form Load Bengkel</b></span>
+            </i> <span style="color:#005197"><b>Report Load Bengkel</b></span>
+          </a>
+        </li>
+        <?php
+        if($jabatan == "Manager"){
+        ?>
+        <li>
+          <a href="cari.php?id_karyawan=kosong&tanggal=kosong&bulan=kosong&tahun=kosong">
+            </i> <span style="color:#005197"><b>Arsip Data</b></span>
+          </a>
+        </li>
+        <?php
+        }
+        ?>
+        <li>
+          <a href="logout.php">
+            </i> <span style="color:#005197"><b>Logout</b></span>
           </a>
         </li>
       </ul>
@@ -879,7 +908,7 @@
           <!-- /.box -->
 
         <div class="callout callout-info">
-          <h4>Report Panel Harian</h4>
+          <h4>Report Panel</h4>
 
   
           <p>SPK  = <b><?php echo $spk; ?></b></p>

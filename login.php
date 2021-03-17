@@ -69,7 +69,7 @@
     </form>
 
     <br>
-    <a href="login.html" class="text-center">Belum Punya Akun?</a>
+    <a href="register.php" class="text-center">Belum Punya Akun?</a>
   </div>
   <!-- /.form-box -->
 </div>

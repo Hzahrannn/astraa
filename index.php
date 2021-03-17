@@ -66,6 +66,7 @@
       </a>
     </nav>
   </header>
+
   <?php
 
   require_once 'db.php';
@@ -76,6 +77,7 @@
                     $nama = $row['nama'];
                     $jabatan = $row['jabatan'];
                   }
+
 
   ?>
   <!-- Left side column. contains the logo and sidebar -->
@@ -106,7 +108,23 @@
         </li>
         <li>
           <a href="bengkel_report.php?id=all">
-            </i> <span style="color:#005197"><b>Form Load Bengkel</b></span>
+            </i> <span style="color:#005197"><b>Report Load Bengkel</b></span>
+          </a>
+        </li>
+        <?php
+        if($jabatan == "Manager"){
+        ?>
+        <li>
+          <a href="cari.php?id_karyawan=kosong&tanggal=kosong&bulan=kosong&tahun=kosong">
+            </i> <span style="color:#005197"><b>Arsip Data</b></span>
+          </a>
+        </li>
+        <?php
+        }
+        ?>
+        <li>
+          <a href="logout.php">
+            </i> <span style="color:#005197"><b>Logout</b></span>
           </a>
         </li>
       </ul>
@@ -138,7 +156,10 @@
             <div class="box-body">
 
               <?php
+
               require_once( "db.php");
+              if($jabatan != "Manager"){
+
                 $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Auto 2000' AND bengkel='Auto 2000' AND tgl='$tgl' AND bln='$bln' AND thn='$thn' AND id_karyawan='$id_karyawan'";
                   $result = $db->query($sql);
                   while($row = $result->fetch_assoc()){
@@ -150,6 +171,20 @@
                   while($row = $result->fetch_assoc()){
                     $ad1 = $row['c'];
                   }
+              }
+              else{
+                $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Auto 2000' AND bengkel='Auto 2000' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+                    $ad = $row['c'];
+                  }
+
+                  $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Auto 2000' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+                    $ad1 = $row['c'];
+                  }
+              }
               ?>
 
               <p>Today</p>
@@ -161,6 +196,7 @@
 
               <?php
               require_once( "db.php");
+              if($jabatan != "Manager"){
                 $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Auto 2000' AND bengkel='Auto 2000' AND bln='$bln' AND thn='$thn' AND id_karyawan='$id_karyawan'";
                   $result = $db->query($sql);
                   while($row = $result->fetch_assoc()){
@@ -172,6 +208,20 @@
                   while($row = $result->fetch_assoc()){
                     $am1 = $row['c'];
                   }
+              }
+              else{
+                  $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Auto 2000' AND bengkel='Auto 2000' AND bln='$bln' AND thn='$thn'";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+                    $am = $row['c'];
+                  }
+
+                $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Auto 2000' AND bln='$bln' AND thn='$thn'";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+                    $am1 = $row['c'];
+                  }
+              }
               ?>
 
               <p>Month</p>
@@ -183,6 +233,7 @@
 
               <?php
               require_once( "db.php");
+              if($jabatan != "Manager"){
                 $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Auto 2000' AND bengkel='Auto 2000' AND thn='$thn' AND id_karyawan='$id_karyawan'";
                   $result = $db->query($sql);
                   while($row = $result->fetch_assoc()){
@@ -195,6 +246,21 @@
                   while($row = $result->fetch_assoc()){
                     $ay1 = $row['c'];
                   }
+                }
+                else{
+                  $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Auto 2000' AND bengkel='Auto 2000' AND thn='$thn'";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+                    $ay = $row['c'];
+                  }
+
+                require_once( "db.php");
+                $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Auto 2000' AND thn='$thn'";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+                    $ay1 = $row['c'];
+                  }
+                }
               ?>
 
               <p>Year</p>
@@ -219,6 +285,7 @@
 
               <?php
               require_once( "db.php");
+              if($jabatan != "Manager"){
                 $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Daihatsu' AND bengkel='Daihatsu' AND tgl='$tgl' AND bln='$bln' AND thn='$thn' AND id_karyawan='$id_karyawan'";
                   $result = $db->query($sql);
                   while($row = $result->fetch_assoc()){
@@ -231,6 +298,21 @@
                   while($row = $result->fetch_assoc()){
                     $dd1 = $row['c'];
                   }
+                }
+                else{
+                  $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Daihatsu' AND bengkel='Daihatsu' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+                    $dd = $row['c'];
+                  }
+
+                require_once( "db.php");
+                $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Daihatsu' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+                    $dd1 = $row['c'];
+                  }
+                }
               ?>
 
               <p>Today</p>
@@ -242,6 +324,7 @@
 
               <?php
               require_once( "db.php");
+              if($jabatan != "Manager"){
                 $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Daihatsu' AND bengkel='Daihatsu' AND bln='$bln' AND thn='$thn' AND id_karyawan='$id_karyawan'";
                   $result = $db->query($sql);
                   while($row = $result->fetch_assoc()){
@@ -253,6 +336,20 @@
                   while($row = $result->fetch_assoc()){
                     $dm1 = $row['c'];
                   }
+                }
+                else{
+                  $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Daihatsu' AND bengkel='Daihatsu' AND bln='$bln' AND thn='$thn'";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+                    $dm = $row['c'];
+                  }
+
+                $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Daihatsu' AND bln='$bln' AND thn='$thn'";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+                    $dm1 = $row['c'];
+                  }
+                }
               ?>
 
               <p>Month</p>
@@ -264,6 +361,8 @@
 
               <?php
               require_once( "db.php");
+              if($jabatan != "Manager"){
+
                 $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Daihatsu' AND bengkel='Daihatsu' AND thn='$thn' AND id_karyawan='$id_karyawan'";
                   $result = $db->query($sql);
                   while($row = $result->fetch_assoc()){
@@ -275,6 +374,20 @@
                   while($row = $result->fetch_assoc()){
                     $dy1 = $row['c'];
                   }
+              }
+              else{
+                $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Daihatsu' AND bengkel='Daihatsu' AND thn='$thn'";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+                    $dy = $row['c'];
+                  }
+
+                  $sql = "SELECT count(*) as c FROM load_bengkel Where dealer='Daihatsu' AND thn='$thn'";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+                    $dy1 = $row['c'];
+                  }
+              }
               ?>
 
               <p>Year</p>
