@@ -93,7 +93,7 @@
 
   ?>
   <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar" style="background-color:#ecf0f5;">
+   <aside class="main-sidebar" style="background-color:#ecf0f5;">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
@@ -113,11 +113,17 @@
             </i> <span style="color:#005197"><b>Diagram Analisis</b></span>
           </a>
         </li>
+        <?php
+        if($jabatan != "Manager"){
+        ?>
         <li>
           <a href="bengkel_load.php">
             </i> <span style="color:#005197"><b>Form Load Bengkel</b></span>
           </a>
         </li>
+        <?php 
+        }
+        ?>
         <li>
           <a href="bengkel_report.php?id=all">
             </i> <span style="color:#005197"><b>Report Load Bengkel</b></span>
@@ -126,6 +132,16 @@
         <?php
         if($jabatan == "Manager"){
         ?>
+        <li>
+          <a href="dealer.php">
+            </i> <span style="color:#005197"><b>Tambah Data Dealer</b></span>
+          </a>
+        </li>
+        <li>
+          <a href="bengkel.php">
+            </i> <span style="color:#005197"><b>Tambah Data Bengkel</b></span>
+          </a>
+        </li>
         <li>
           <a href="cari.php?id_karyawan=kosong&tanggal=kosong&bulan=kosong&tahun=kosong">
             </i> <span style="color:#005197"><b>Arsip Data</b></span>
@@ -309,29 +325,37 @@
                     $sql = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
 
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
+                    $prp =0;
+          $result = $db->query($sql);
+          while($row = $result->fetch_assoc()){
+            $prp1 = $row['p_repair'];
+            $prp = $prp + $prp1;
+          }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
+                    $ppl =0;
+          $result = $db->query($sql);
+          while($row = $result->fetch_assoc()){
+            $ppl1 = $row['p_poles'];
+            $ppl = $ppl + $ppl1;
+          }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
+                     $psp =0;
+          $result = $db->query($sql);
+          while($row = $result->fetch_assoc()){
+            $psp1 = $row['p_spr'];
+            $psp = $psp + $psp1;
+          }
 
                     $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
                     $result = $db->query($sql1);
@@ -345,63 +369,81 @@
                     $sql = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan'";
                     
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
                     $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan'";
                     $result = $db->query($sql1);
                     while($row1 = $result->fetch_assoc()){
                       $spk = $row1['c'];
                     }
+
                   }
+
                   else if($id_karyawan == "kosong" && $tgl != "kosong" && $bln == "kosong" && $thn == "kosong"){
                     $sql = "SELECT * FROM load_bengkel Where tgl='$tgl'";
 
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                     $sql1 = "SELECT * FROM load_bengkel Where tgl='$tgl'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where tgl='$tgl'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where tgl='$tgl'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where tgl='$tgl'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
                     $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl'";
                     $result = $db->query($sql1);
@@ -409,67 +451,85 @@
                       $spk = $row1['c'];
                     }
                   }
+
                   else if($id_karyawan == "kosong" && $tgl == "kosong" && $bln != "kosong" && $thn == "kosong"){
                     $sql = "SELECT * FROM load_bengkel Where bln='$bln'";
 
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where bln='$bln' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where bln='$bln'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where bln='$bln' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where bln='$bln'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where bln='$bln' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where bln='$bln'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where bln='$bln' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where bln='$bln'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
                     $sql1 = "SELECT count(*) as c FROM load_bengkel Where bln='$bln'";
                     $result = $db->query($sql1);
                     while($row1 = $result->fetch_assoc()){
                       $spk = $row1['c'];
                     }
+
                   }
                   else if($id_karyawan == "kosong" && $tgl == "kosong" && $bln == "kosong" && $thn != "kosong"){
                     $sql = "SELECT * FROM load_bengkel Where thn='$thn'";
 
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where thn='$thn' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where thn='$thn'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where thn='$thn' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where thn='$thn'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where thn='$thn' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where thn='$thn'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where thn='$thn' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where thn='$thn'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
                     $sql1 = "SELECT count(*) as c FROM load_bengkel Where thn='$thn'";
                     $result = $db->query($sql1);
@@ -482,29 +542,37 @@
                     $sql = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl'";
 
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
                     $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl'";
                     $result = $db->query($sql1);
@@ -516,29 +584,37 @@
                     $sql = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln'";
 
 
-                     $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
                     $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln'";
                     $result = $db->query($sql1);
@@ -550,29 +626,37 @@
                     $sql = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND thn='$thn'";
 
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND thn='$thn' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                   $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND thn='$thn'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND thn='$thn' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND thn='$thn'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND thn='$thn' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND thn='$thn'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND thn='$thn' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND thn='$thn'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
                     $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND thn='$thn'";
                     $result = $db->query($sql1);
@@ -585,29 +669,37 @@
                     $sql = "SELECT * FROM load_bengkel Where tgl='$tgl' AND bln='$bln'";
 
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND bln='$bln' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where tgl='$tgl' AND bln='$bln'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND bln='$bln' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where tgl='$tgl' AND bln='$bln'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND bln='$bln' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where tgl='$tgl' AND bln='$bln'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND bln='$bln' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where tgl='$tgl' AND bln='$bln'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
                     $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND bln='$bln'";
                     $result = $db->query($sql1);
@@ -620,29 +712,37 @@
                     $sql = "SELECT * FROM load_bengkel Where tgl='$tgl' AND thn='$thn'";
 
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND thn='$thn' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where tgl='$tgl' AND thn='$thn'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND thn='$thn' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where tgl='$tgl' AND thn='$thn'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND thn='$thn' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where tgl='$tgl' AND thn='$thn'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND thn='$thn' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where tgl='$tgl' AND thn='$thn'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
                     $sql1 = "SELECT count(*) as c FROM load_bengkel Where tgl='$tgl' AND thn='$thn'";
                     $result = $db->query($sql1);
@@ -654,29 +754,37 @@
                     $sql = "SELECT * FROM load_bengkel Where bln='$bln' AND thn='$thn'";
 
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where bln='$bln' AND thn='$thn' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where bln='$bln' AND thn='$thn'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where bln='$bln' AND thn='$thn' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where bln='$bln' AND thn='$thn'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where bln='$bln' AND thn='$thn' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where bln='$bln' AND thn='$thn'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where bln='$bln' AND thn='$thn' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where bln='$bln' AND thn='$thn'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
                     $sql1 = "SELECT count(*) as c FROM load_bengkel Where bln='$bln' AND thn='$thn'";
                     $result = $db->query($sql1);
@@ -688,29 +796,37 @@
                     $sql = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND thn='$thn'";
 
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND thn='$thn' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND thn='$thn'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND thn='$thn' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND thn='$thn'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND thn='$thn' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND thn='$thn'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND thn='$thn' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND thn='$thn'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
                     $sql1 = "SELECT count(*) as c FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND thn='$thn'";
                     $result = $db->query($sql1);
@@ -723,99 +839,125 @@
                     $sql = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND tgl='$tgl'";
 
 
-                    $sql1 = "SELECT count(*) as c FROM id_karyawan='$id_karyawan' AND bln='$bln' AND tgl='$tgl' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND tgl='$tgl'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM id_karyawan='$id_karyawan' AND bln='$bln' AND tgl='$tgl' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND tgl='$tgl'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM id_karyawan='$id_karyawan' AND bln='$bln' AND tgl='$tgl' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND tgl='$tgl'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM id_karyawan='$id_karyawan' AND bln='$bln' AND tgl='$tgl' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND bln='$bln' AND tgl='$tgl'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
-                    $sql1 = "SELECT count(*) as c FROM id_karyawan='$id_karyawan' AND bln='$bln' AND tgl='$tgl'";
+                    $sql1 = "SELECT count(*) as c FROM load bengkel where id_karyawan='$id_karyawan' AND bln='$bln' AND tgl='$tgl'";
                     $result = $db->query($sql1);
                     while($row1 = $result->fetch_assoc()){
                       $spk = $row1['c'];
                     }
                   }
+
                   else if($id_karyawan == "kosong" && $tgl != "kosong" && $bln != "kosong" && $thn != "kosong"){
                     $sql = "SELECT * FROM load_bengkel Where thn='$thn' AND bln='$bln' AND tgl='$tgl'";
 
 
-                    $sql1 = "SELECT count(*) as c FROM thn='$thn' AND bln='$bln' AND tgl='$tgl' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where thn='$thn' AND bln='$bln' AND tgl='$tgl'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM thn='$thn' AND bln='$bln' AND tgl='$tgl' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where thn='$thn' AND bln='$bln' AND tgl='$tgl'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM thn='$thn' AND bln='$bln' AND tgl='$tgl' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where thn='$thn' AND bln='$bln' AND tgl='$tgl'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM thn='$thn' AND bln='$bln' AND tgl='$tgl' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where thn='$thn' AND bln='$bln' AND tgl='$tgl'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
-                    $sql1 = "SELECT count(*) as c FROM id_karyawan='$id_karyawan' AND bln='$bln' AND tgl='$tgl'";
+                    $sql1 = "SELECT count(*) as c FROM load bengkel where thn='$thn' AND bln='$bln' AND tgl='$tgl'";
                     $result = $db->query($sql1);
                     while($row1 = $result->fetch_assoc()){
                       $spk = $row1['c'];
                     }
+
                   }
                   else if($id_karyawan != "kosong" && $tgl != "kosong" && $bln != "kosong" && $thn != "kosong"){
                     $sql = "SELECT * FROM load_bengkel Where $id_karyawan='$id_karyawan' thn='$thn' AND bln='$bln' AND tgl='$tgl'";
 
 
-                    $sql1 = "SELECT count(*) as c FROM $id_karyawan='$id_karyawan' thn='$thn' AND bln='$bln' AND tgl='$tgl' AND p_replace >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prc = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where thn='$thn' AND bln='$bln' AND tgl='$tgl'";
+                    $prc =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prc1 = $row['p_replace'];
+                      $prc = $prc + $prc1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM $id_karyawan='$id_karyawan' thn='$thn' AND bln='$bln' AND tgl='$tgl' AND p_repair >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $prp = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where thn='$thn' AND bln='$bln' AND tgl='$tgl'";
+                    $prp =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $prp1 = $row['p_repair'];
+                      $prp = $prp + $prp1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM $id_karyawan='$id_karyawan' thn='$thn' AND bln='$bln' AND tgl='$tgl' AND p_poles >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $ppl = $row1['c'];
+                    $sql1 = "SELECT * FROM load_bengkel Where thn='$thn' AND bln='$bln' AND tgl='$tgl'";
+                    $ppl =0;
+                    $result = $db->query($sql);
+                    while($row = $result->fetch_assoc()){
+                      $ppl1 = $row['p_poles'];
+                      $ppl = $ppl + $ppl1;
                     }
 
-                    $sql1 = "SELECT count(*) as c FROM $id_karyawan='$id_karyawan' thn='$thn' AND bln='$bln' AND tgl='$tgl' AND p_spr >= '1'";
-                    $result = $db->query($sql1);
-                    while($row1 = $result->fetch_assoc()){
-                      $psp = $row1['c'];
-                    }
+                    $sql1 = "SELECT * FROM load_bengkel Where thn='$thn' AND bln='$bln' AND tgl='$tgl'";
+                      $psp =0;
+                      $result = $db->query($sql);
+                      while($row = $result->fetch_assoc()){
+                        $psp1 = $row['p_spr'];
+                        $psp = $psp + $psp1;
+                      }
 
-                    $sql1 = "SELECT count(*) as c FROM $id_karyawan='$id_karyawan' thn='$thn' AND bln='$bln' AND tgl='$tgl'";
+                    $sql1 = "SELECT count(*) as c FROM load bengkel where $id_karyawan='$id_karyawan' AND thn='$thn' AND bln='$bln' AND tgl='$tgl'";
                     $result = $db->query($sql1);
                     while($row1 = $result->fetch_assoc()){
                       $spk = $row1['c'];

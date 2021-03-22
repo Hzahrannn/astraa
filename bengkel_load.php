@@ -213,9 +213,16 @@
                 </div>
 
                 <div class="form-group row">
+                  <label for="staticEmail" class="col-sm-2 col-form-label">other</label>
+                  <div class="col-sm-10">
+                    <input type="number" name="p_replace" class="form-control">
+                  </div>
+                </div>
+
+                <div class="form-group row">
                   <label for="staticEmail" class="col-sm-2 col-form-label">Panel Replace</label>
                   <div class="col-sm-10">
-                    <input type="text" name="p_replace" class="form-control">
+                    <input type="number" name="p_replace" class="form-control">
                   </div>
                 </div>
 

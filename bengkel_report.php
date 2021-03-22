@@ -171,9 +171,19 @@
           <div>
             <div class="box-header">
 
-                <a href="bengkel_report.php?id=Auto 2000"><button class="btn btn-info">Auto 2000</button></a>
-                <a href="bengkel_report.php?id=Daihatsu"><button class="btn btn-info">Daihatsu</button></a>
-                <a href="bengkel_report.php?id=Others"><button class="btn btn-info">Others</button></a>
+                  <?php
+
+  require_once 'db.php';
+  $sql = "SELECT * FROM dealer";
+                  $result = $db->query($sql);
+                  while($row = $result->fetch_assoc()){
+
+  ?>
+                <a href="bengkel_report.php?id=<?php echo $row['nama_dealer'];?>"><button class="btn btn-info"><?php echo $row['nama_dealer'];?></button></a>
+                <?php
+                }
+                ?>
+                <a href="bengkel_report.php?id=all"><button class="btn btn-info">All</button></a>
                     
             </div>
             <br><br>
@@ -182,7 +192,9 @@
               <table id="example1" class="table table-striped">
                 <thead>
                 <tr style="background-color:#00c0ef;">
+                  <th>Nama Karyawan</th>
                   <th>No SPK</th>
+                  <th>Dealer</th>
                   <th>Nama Costumer</th>
                   <th>No HP</th>
                   <th>Bengkel</th>
@@ -208,18 +220,18 @@
                   
                   if($jabatan != "Manager"){
                     if ($id == "all"){
-                      $sql = "SELECT * FROM load_bengkel Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
+                      $sql = "SELECT * FROM load_bengkel INNER JOIN karyawan ON load_bengkel.id_karyawan = karyawan.id_karyawan Where id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
                     }
                     else{
-                      $sql = "SELECT * FROM load_bengkel Where dealer='$id' AND id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
+                      $sql = "SELECT * FROM load_bengkel INNER JOIN karyawan ON load_bengkel.id_karyawan = karyawan.id_karyawan Where dealer='$id' AND id_karyawan='$id_karyawan' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
                     }
                   }
                   else{
                     if ($id == "all"){
-                      $sql = "SELECT * FROM load_bengkel Where tgl='$tgl' AND bln='$bln' AND thn='$thn'";
+                      $sql = "SELECT * FROM load_bengkel INNER JOIN karyawan ON load_bengkel.id_karyawan = karyawan.id_karyawan Where tgl='$tgl' AND bln='$bln' AND thn='$thn'";
                     }
                     else{
-                      $sql = "SELECT * FROM load_bengkel Where dealer='$id' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
+                      $sql = "SELECT * FROM load_bengkel INNER JOIN karyawan ON load_bengkel.id_karyawan = karyawan.id_karyawan Where dealer='$id' AND tgl='$tgl' AND bln='$bln' AND thn='$thn'";
                     }
                   }
                   
@@ -228,7 +240,9 @@
                   ?>
 
                 <tr style="background-color:#ecf0f5;">
+                  <td><?php echo $row["nama"];?></td>
                   <td><?php echo $row["spk"];?></td>
+                  <td><?php echo $row["dealer"];?></td>
                   <td><?php echo $row["customer"];?></td>
                   <td><?php echo $row["hp"];?></td>
                   <td><?php echo $row["bengkel"];?></td>
